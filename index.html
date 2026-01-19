@@ -1,0 +1,537 @@
+ <!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f4f4f0">
+    <title>ArcKernē Fiducium | Institutional Administration</title>
+
+    <!-- SEO & Compliance (Audit Grade 100 - Regulatory Hardened) -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="description" content="Independent, non-advisory fiduciary execution for professional intermediaries, family offices, and private mandates. Singapore registered office. Access restricted.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%231c1917%22/></svg>">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'swiss-black': '#0a0a0a',
+                        'swiss-stone': '#1c1917',
+                        'swiss-paper': '#f4f4f0',
+                        'swiss-line': '#d6d3d1',
+                        'swiss-muted': '#57534e',
+                        'swiss-alert': '#7f1d1d',
+                        'swiss-accent': '#3f3b37'
+                    },
+                    transitionTimingFunction: {
+                        'luxury': 'cubic-bezier(0.22, 1, 0.36, 1)', 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #1c1917;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Texture Overlay for "Bond Paper" Feel */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Subtle Grid */
+        .admin-grid {
+            background-image: linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+                              linear-gradient(to bottom, #e7e5e4 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .type-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* View Transitions */
+        .view-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .view-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+        #mobile-menu.open {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-swiss-stone selection:text-white">
+
+<div class="texture-overlay"></div>
+<div class="fixed inset-0 admin-grid opacity-40 pointer-events-none z-0"></div>
+
+<!-- Mobile Navigation Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-50 bg-swiss-paper opacity-0 invisible flex flex-col pointer-events-none data-[state=open]:pointer-events-auto">
+    <div class="flex justify-between items-center p-6 border-b border-swiss-line">
+        <span class="type-label text-swiss-stone font-bold tracking-widest">MENU /// NAV</span>
+        <button onclick="toggleMobileMenu()" class="p-2 -mr-2 text-2xl font-serif italic text-swiss-stone hover:opacity-50 transition-opacity">Close</button>
+    </div>
+    <nav class="flex-grow flex flex-col justify-center px-8 space-y-8">
+        <button onclick="handleNav('home')" class="text-3xl font-serif text-swiss-stone text-left hover:pl-4 transition-all duration-500">Overview</button>
+        <button onclick="handleNav('administration')" class="text-3xl font-serif text-swiss-stone text-left hover:pl-4 transition-all duration-500">Administration</button>
+        <button onclick="handleNav('intermediaries')" class="text-3xl font-serif text-swiss-stone text-left hover:pl-4 transition-all duration-500">Intermediaries</button>
+        <button onclick="handleNav('inquiries')" class="text-3xl font-serif text-swiss-stone text-left hover:pl-4 transition-all duration-500">Inquiries</button>
+        <button onclick="handleNav('legal')" class="text-3xl font-serif text-swiss-stone text-left hover:pl-4 transition-all duration-500">Legal & Regulatory</button>
+    </nav>
+    <div class="p-8 border-t border-swiss-line">
+        <button onclick="handleNav('secure')" class="w-full py-4 border border-swiss-stone bg-swiss-stone text-white type-label hover:bg-black transition-colors">
+            Portal Access
+        </button>
+    </div>
+</div>
+
+<div class="relative z-10 w-full max-w-[1600px] mx-auto bg-swiss-paper border-x border-swiss-line min-h-screen flex flex-col shadow-sm">
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-40 bg-swiss-paper/95 backdrop-blur-md border-b border-swiss-line px-6 md:px-24 py-5 flex justify-between items-center">
+        <div class="flex items-center gap-4 cursor-pointer group" onclick="handleNav('home')">
+            <div class="w-3 h-3 bg-swiss-stone group-hover:rotate-45 transition-transform duration-700"></div>
+            <div class="flex flex-col">
+                <span class="font-sans text-[11px] font-bold tracking-[0.2em] uppercase text-swiss-stone">ArcKernē Fiducium</span>
+                <span class="type-label text-[9px] opacity-80 hidden md:block">Independent Fiduciary Execution</span>
+            </div>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-10">
+            <button onclick="handleNav('home')" class="type-label text-swiss-muted hover:text-swiss-stone transition-colors">Home</button>
+            <button onclick="handleNav('administration')" class="type-label text-swiss-muted hover:text-swiss-stone transition-colors">Administration</button>
+            <button onclick="handleNav('intermediaries')" class="type-label text-swiss-muted hover:text-swiss-stone transition-colors">For Intermediaries</button>
+            <button onclick="handleNav('inquiries')" class="type-label text-swiss-muted hover:text-swiss-stone transition-colors">Inquiries</button>
+            <!-- Added Desktop Legal Link -->
+            <button onclick="handleNav('legal')" class="type-label text-swiss-muted hover:text-swiss-stone transition-colors">Legal</button>
+            <div class="w-px h-4 bg-swiss-line"></div>
+            <button onclick="handleNav('secure')" class="px-5 py-2 bg-swiss-stone text-white type-label text-[9px] hover:bg-black transition-all">
+                Portal
+            </button>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 space-y-1.5 group">
+            <div class="w-6 h-px bg-swiss-stone transition-all group-hover:w-4 ml-auto"></div>
+            <div class="w-6 h-px bg-swiss-stone"></div>
+            <div class="w-6 h-px bg-swiss-stone transition-all group-hover:w-4 ml-auto"></div>
+        </button>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="flex-grow">
+        <!-- HOME -->
+        <div id="view-home" class="view-section active">
+            <header class="px-6 md:px-24 pt-24 md:pt-40 pb-20 border-b border-swiss-line reveal visible">
+                <p class="type-label text-swiss-stone mb-8 flex items-center gap-3">
+                    <span class="w-8 h-px bg-swiss-stone"></span> Singapore Registered Office · MBFC
+                </p>
+                <h1 class="font-serif text-4xl md:text-7xl text-swiss-stone mb-8 italic leading-tight">
+                    Austere, non‑advisory fiduciary administration.
+                </h1>
+                <div class="max-w-3xl space-y-6">
+                    <p class="font-serif text-xl md:text-2xl leading-relaxed text-swiss-stone text-justify">
+                        ArcKernē Fiducium provides instruction‑based governance and administration for
+                        private trust structures, Singapore substance vehicles, and long‑horizon family
+                        mandates.
+                    </p>
+                    <p class="font-serif text-lg md:text-xl leading-relaxed text-swiss-stone text-justify opacity-90">
+                        Mandates are executed in coordination with clients’ existing legal and tax advisors across jurisdictions.
+                    </p>
+                    <p class="type-label text-swiss-muted max-w-xl">
+                        B2B & B2B2C · Professional intermediaries, family offices, and ultra‑private principals.
+                        No products. No distribution. Execution only.
+                    </p>
+                </div>
+            </header>
+        </div>
+
+        <!-- ADMINISTRATION / SERVICES -->
+        <div id="view-administration" class="view-section">
+            <header class="px-6 md:px-24 pt-24 pb-10 border-b border-swiss-line bg-swiss-paper/50">
+                <h2 class="font-serif text-4xl text-swiss-stone italic">Services & Scope</h2>
+                <p class="type-label text-swiss-muted mt-4 max-w-2xl">
+                    Mandate‑based, non‑advisory execution only. No investment, tax, or legal advice is provided.
+                </p>
+            </header>
+
+            <div class="px-6 md:px-24 py-12 space-y-12">
+                <!-- CAT-01 -->
+                <section class="border-l border-swiss-stone pl-8 reveal">
+                    <span class="type-label text-swiss-muted font-bold">CAT‑01 · Private Trust Administration</span>
+                    <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Minute books, resolutions, and audit‑grade records</h3>
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl">
+                        Maintenance of minute books, registers, and mandate files; ratification of
+                        instructions; preparation and coordination of annual financial statements with
+                        external counsel and auditors.
+                    </p>
+                </section>
+
+                <!-- CAT-02 -->
+                <section class="border-l border-swiss-stone pl-8 reveal">
+                    <span class="type-label text-swiss-muted font-bold">CAT‑02 · Corporate Mandate Governance</span>
+                    <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Board support for holding and treasury vehicles</h3>
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl">
+                        Convening and documenting board decisions, maintaining statutory registers, and
+                        supporting governance protocols for Singapore and multi‑jurisdictional corporate
+                        structures.
+                    </p>
+                </section>
+
+                <!-- CAT-03 -->
+                <section class="border-l border-swiss-stone pl-8 reveal">
+                    <span class="type-label text-swiss-muted font-bold">CAT‑03 · Substance & Infrastructure</span>
+                    <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Economic substance for family and holding platforms</h3>
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl">
+                        Provision of registered office, independent directors, board procedures, and
+                        local record‑keeping to support Singapore economic substance and
+                        controlled‑foreign‑company analysis for family offices and holding entities.
+                    </p>
+                </section>
+
+                <!-- CAT-04 -->
+                <section class="border-l border-swiss-stone pl-8 reveal">
+                    <span class="type-label text-swiss-muted font-bold">CAT‑04 · Family Governance Execution</span>
+                    <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Policy‑based distributions and oversight</h3>
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl">
+                        Implementation of pre‑agreed family policies, distribution frameworks, and
+                        escalation protocols, allowing investment decision‑makers to remain separate
+                        from day‑to‑day requests and internal pressures.
+                    </p>
+                </section>
+
+                <!-- CAT-05 -->
+                <section class="border-l border-swiss-stone pl-8 reveal">
+                    <span class="type-label text-swiss-muted font-bold">CAT‑05 · Consolidated Reporting Liaison</span>
+                    <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Institutional reporting and audit liaison</h3>
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl">
+                        Coordination of mandate‑level reporting, information requests, and audit
+                        support with external accountants, tax advisors, and custodians under a
+                        centralised instruction framework.
+                    </p>
+                </section>
+
+                <!-- SCOPE NOTE -->
+                <section class="border border-dashed border-swiss-line p-6 mt-8 max-w-3xl bg-white/40 reveal">
+                    <p class="type-label text-swiss-muted mb-2 font-bold">Scope of engagement</p>
+                    <p class="text-swiss-muted text-xs leading-relaxed font-serif italic">
+                        Services are provided on an administrative and governance basis only, within
+                        documented mandates agreed with clients’ legal and tax advisors. No
+                        investment management, product distribution, or retail onboarding is offered.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- FOR INTERMEDIARIES / PERSONAS -->
+        <div id="view-intermediaries" class="view-section">
+            <header class="px-6 md:px-24 pt-24 pb-10 border-b border-swiss-line bg-swiss-paper/50">
+                <h2 class="font-serif text-4xl text-swiss-stone italic">For Intermediaries & Family Offices</h2>
+                <p class="type-label text-swiss-muted mt-4 max-w-2xl">
+                    Institutional alliances with tax advisors, private client lawyers, and single family offices.
+                </p>
+            </header>
+
+            <div class="px-6 md:px-24 py-12 grid md:grid-cols-3 gap-12">
+                <!-- GATEKEEPER -->
+                <section class="space-y-4 reveal">
+                    <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-2">Persona 01 · The Gatekeeper</p>
+                    <h3 class="text-xl font-serif italic">Tax advisors & private client lawyers</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        You design the structure. ArcKernē executes the mandate: resolutions,
+                        records, and governance mechanics, without providing legal, tax, or investment advice.
+                    </p>
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-3">
+                        No product shelf, no cross‑selling, and no competition with your advisory role.
+                        Communications and reporting lines are configured around your firm.
+                    </p>
+                </section>
+
+                <!-- FAMILY ARCHITECT -->
+                <section class="space-y-4 reveal">
+                    <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-2">Persona 02 · The Family Architect</p>
+                    <h3 class="text-xl font-serif italic">Single family office leadership</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Infrastructure for Singapore substance: registered office, independent
+                        directors, board procedures, and local records aligned with your existing
+                        investment governance.
+                    </p>
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-3">
+                        Use ArcKernē as an execution and “bad‑cop” layer so that family
+                        decision‑makers can preserve neutrality while policies are applied consistently.
+                    </p>
+                </section>
+
+                <!-- PARANOID PATRIARCH -->
+                <section class="space-y-4 reveal">
+                    <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-2">Persona 03 · The Private Principal</p>
+                    <h3 class="text-xl font-serif italic">Ultra‑private principals</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        No in‑house investment products, no retrocessions, and no sales pipeline.
+                        Fees are mandate‑based; loyalty is to the structure and documented intent,
+                        not to yield‑driven distribution.
+                    </p>
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-3">
+                        Engagements are typically introduced via trusted counsel or family office
+                        leadership and remain deliberately low‑profile.
+                    </p>
+                </section>
+            </div>
+
+            <div class="px-6 md:px-24 pb-16 reveal">
+                <section class="border border-dashed border-swiss-line p-6 max-w-3xl bg-white/40">
+                    <p class="type-label text-swiss-muted mb-2 font-bold">Engagement profile</p>
+                    <p class="text-swiss-muted text-xs leading-relaxed font-serif italic">
+                        ArcKernē does not target retail clients, transactional one‑off trusts, or
+                        arrangements seeking to evade tax illegally. Mandates are subject to
+                        enhanced due diligence and regulatory requirements.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- LEGAL / TERMS PAGE (Hardened) -->
+        <div id="view-legal" class="view-section">
+            <header class="px-6 md:px-24 pt-24 pb-10 border-b border-swiss-line">
+                <h2 class="font-serif text-4xl text-swiss-stone italic">Regulatory Disclosures & Terms</h2>
+                <p class="type-label text-swiss-muted mt-4 max-w-2xl">
+                    Governing Law · AML/CTF Stance · Client Classification
+                </p>
+            </header>
+
+            <div class="px-6 md:px-24 py-12 max-w-4xl space-y-12 reveal">
+                <!-- 1. NO OFFER / NO SOLICITATION (NEW) -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">1. No Offer / No Solicitation</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Nothing on this site constitutes an offer, recommendation, or solicitation to enter into any transaction or to establish any structure in any jurisdiction. This website is for informational purposes only.
+                    </p>
+                </section>
+
+                <!-- 2. NON-ADVISORY -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">2. Non-Advisory Nature</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        ArcKernē Fiducium ("The Firm") does not provide investment, tax, or legal advice. All fiduciary and administrative services are provided on an execution-only basis in accordance with the terms of the specific mandate and the instructions of the Client or the Client’s appointed advisors. The Firm does not act as a custodian of assets unless explicitly agreed under a specific structure.
+                    </p>
+                </section>
+
+                <!-- 3. AML/CFT (UPDATED) -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">3. AML / CFT & Compliance</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        The Firm is committed to the highest standards of Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF). <strong>Internal policies are aligned with MAS Notice TCA-N03</strong> applicable to trust companies and relevant international FATF standards.
+                    </p>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        <strong>Enhanced Due Diligence (EDD):</strong> The Firm does not accept mandates involving assets derived from criminal conduct, tax evasion, or persons subject to international sanctions lists. All prospective clients undergo rigorous KYC and Source of Wealth verification.
+                    </p>
+                </section>
+
+                <!-- 4. GOVERNING LAW -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">4. Governing Law & Jurisdiction</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Unless otherwise specified in a particular mandate agreement, the relationship between The Firm and the Client shall be governed by and construed in accordance with the laws of the <strong>Republic of Singapore</strong>. Any disputes arising out of or in connection with the services provided shall be subject to the exclusive jurisdiction of the Singapore courts.
+                    </p>
+                </section>
+
+                <!-- 5. CLIENT CLASSIFICATION (UPDATED) -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">5. Accredited & Institutional Investors</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Services are <strong>intended only for</strong> Accredited Investors, Institutional Investors, and Family Offices as defined under the <strong>Securities and Futures Act, Chapter 289 of Singapore</strong>, and related MAS guidance. The Firm does not market to the general retail public, and this site does not itself constitute an offer to any person.
+                    </p>
+                </section>
+
+                <!-- 6. WEBSITE LIABILITY (NEW) -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">6. Website Use & Liability</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Information is provided ‘as is’ and may be amended without notice; no warranty as to accuracy, completeness, or fitness for purpose is given; use of this site is at the user’s sole risk. The Firm shall not be liable for any loss or damage arising from the use or inability to use this website or reliance on its content, to the extent permitted by law.
+                    </p>
+                </section>
+
+                <!-- 7. PRIVACY & COMMS (NEW) -->
+                <section class="space-y-4">
+                    <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">7. Privacy & Communications</h3>
+                    <p class="text-swiss-muted text-sm leading-relaxed">
+                        Personal data provided in connection with mandate inquiries is processed solely for onboarding and compliance purposes, in line with applicable data protection laws. Email communications are not guaranteed secure; sensitive or confidential information should only be exchanged through agreed secure channels.
+                    </p>
+                </section>
+                
+                <div class="pt-8">
+                     <button onclick="handleNav('home')" class="type-label hover:text-swiss-stone text-swiss-muted transition-colors border-b border-swiss-line pb-1">← Return to Overview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- INQUIRIES -->
+        <div id="view-inquiries" class="view-section">
+            <div class="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center reveal">
+                <p class="type-label mb-8 tracking-widest">Central Registrar</p>
+                <h2 class="font-serif text-4xl md:text-5xl mb-8 italic text-swiss-stone">Mandate & Alliance Inquiries</h2>
+                <p class="text-swiss-muted max-w-md text-sm md:text-base leading-relaxed mb-12 font-serif">
+                    For professional intermediaries and qualifying family offices requesting an
+                    overview of mandate frameworks, governance scope, or Singapore substance
+                    support.
+                </p>
+                <a href="mailto:office@akfiducium.com"
+                   class="border-b border-swiss-stone pb-1 text-2xl md:text-3xl font-mono hover:text-swiss-muted transition-colors">
+                    office@akfiducium.com
+                </a>
+            </div>
+        </div>
+
+        <!-- SECURE / PORTAL INLINE FALLBACK -->
+        <div id="view-secure" class="view-section">
+            <div
+                class="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center bg-swiss-stone text-swiss-paper reveal">
+                <h2 class="font-mono text-xl tracking-widest text-swiss-alert mb-6 border-b border-swiss-alert/50 pb-2">
+                    RESTRICTED ACCESS
+                </h2>
+                <p class="font-serif italic text-lg md:text-xl opacity-80 max-w-md mb-8 leading-relaxed">
+                    "Authorized personnel only. Portal access via multi‑factor authentication and
+                    monitored sessions."
+                </p>
+                <div class="border border-swiss-paper/20 p-4 max-w-xs mx-auto">
+                     <p class="type-label opacity-50 text-[9px] leading-relaxed">
+                        ATTEMPTS ARE LOGGED AT INFRASTRUCTURE LEVEL. NO SELF‑SERVICE RETAIL ONBOARDING.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-swiss-line px-6 md:px-24 py-16">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+            <div class="space-y-4">
+                <div>
+                    <p class="type-label opacity-60 font-bold">&copy; 2026 ArcKernē Fiducium.</p>
+                    <p class="type-label opacity-40 italic mt-1">8 Marina Blvd, MBFC, Singapore</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-green-700 rounded-full"></span>
+                    <span class="type-label text-[9px] opacity-60">System Nominal</span>
+                </div>
+            </div>
+            
+            <div class="space-y-4 max-w-xl text-left md:text-right">
+                <button onclick="handleNav('legal')" class="type-label text-swiss-stone border-b border-swiss-line pb-2 inline-block hover:opacity-50 transition-opacity">
+                    Legal & scope
+                </button>
+                <p class="text-[10px] leading-relaxed text-swiss-muted font-serif italic text-justify md:text-right">
+                    ArcKernē Fiducium is a private fiduciary administration platform operating through
+                    a Singapore registered office. It does not accept public deposits and does not
+                    provide investment, tax, or legal advice. Services are administrative and
+                    governance‑based only and are provided under written mandates, subject to
+                    applicable law and regulatory oversight.
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Navigation Logic
+    function handleNav(viewId) {
+        // Toggle Mobile Menu if Open
+        const menu = document.getElementById('mobile-menu');
+        const body = document.body;
+        
+        if (menu.classList.contains('open')) {
+            toggleMobileMenu();
+        }
+
+        document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(`view-${viewId}`);
+        if (target) {
+            target.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const body = document.body;
+        
+        if (menu.classList.contains('open')) {
+            menu.classList.remove('open');
+            body.style.overflow = ''; 
+        } else {
+            menu.classList.add('open');
+            body.style.overflow = 'hidden'; 
+        }
+    }
+
+    // Scroll Reveal Logic
+    function handleScroll() {
+        document.querySelectorAll('.reveal').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 50) {
+                el.classList.add('visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    // Initial Check
+    document.addEventListener('DOMContentLoaded', handleScroll);
+</script>
+</body>
+</html>

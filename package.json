@@ -1,0 +1,12 @@
+{
+  "name": "arckerne-fiducium",
+  "version": "1.0.0",
+  "description": "Institutional Administration Interface",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
