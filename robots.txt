@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /secure
+Disallow: /portal
+Disallow: /restricted
+Disallow: /admin
+
+Sitemap: https://akfiducium.com/sitemap.xml
