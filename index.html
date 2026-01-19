@@ -29,6 +29,8 @@
                         sans: ['Inter', 'system-ui', 'sans-serif'],
                         serif: ['Playfair Display', 'Georgia', 'serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        /* Menambahkan Canella sebagai font utama untuk elemen branding */
+                        brand: ['"Canella Text Trial"', 'Playfair Display', 'serif'],
                     },
                     colors: {
                         'swiss-black': '#0a0a0a',
@@ -148,9 +150,11 @@
     <!-- NAVIGATION -->
     <nav class="sticky top-0 z-40 bg-swiss-paper/95 backdrop-blur-md border-b border-swiss-line px-6 md:px-24 py-5 flex justify-between items-center">
         <div class="flex items-center gap-4 cursor-pointer group" onclick="handleNav('home')">
-            <img src="https://raw.githubusercontent.com/hanendrakusuma/arckerne-fiducium/main/ArcKerne%CC" 
-                 alt="ArcKernē Fiducium" 
-                 class="h-8 md:h-10 w-auto object-contain transition-opacity hover:opacity-80">
+            <!-- LOGO: TEXT BASED -->
+            <!-- Using custom 'brand' font family which maps to Canella Text Trial or Playfair Display -->
+            <span class="font-brand text-2xl md:text-3xl text-swiss-stone transition-opacity hover:opacity-80 leading-none">
+                ArcKernē Fiducium
+            </span>
         </div>
 
         <!-- Desktop Menu -->
