@@ -44,8 +44,10 @@
                     transitionTimingFunction: {
                         'luxury': 'cubic-bezier(0.22, 1, 0.36, 1)', 
                     },
+                    // Precision Line Heights
                     lineHeight: {
-                        'swiss': '1.75', /* Precise readability */
+                        'tight-swiss': '1.1',  /* For Headings */
+                        'body-swiss': '1.75',  /* For Body */
                     }
                 }
             }
@@ -58,6 +60,16 @@
             color: #1c1917;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 1. Typography Hierarchy Fixes */
+        .font-serif {
+            line-height: 1.15; /* Tighter headings for editorial look */
+            letter-spacing: -0.02em; /* Optical kerning for Serif */
+        }
+        
+        .leading-relaxed {
+            line-height: 1.75; /* Standardized body line-height */
         }
 
         /* Texture Overlay */
@@ -151,8 +163,8 @@
     <nav class="sticky top-0 z-40 bg-swiss-paper/95 backdrop-blur-md border-b border-swiss-line px-6 md:px-24 py-5 flex justify-between items-center">
         <div class="flex items-center gap-4 cursor-pointer group" onclick="handleNav('home')">
             <!-- LOGO: TEXT BASED -->
-            <!-- Using custom 'brand' font family which maps to Canella Text Trial or Playfair Display -->
-            <span class="font-brand text-2xl md:text-3xl text-swiss-stone transition-opacity hover:opacity-80 leading-none">
+            <!-- Using custom 'brand' font family with font-feature-settings for crisp rendering -->
+            <span class="font-brand text-2xl md:text-3xl text-swiss-stone transition-opacity hover:opacity-80 leading-none" style="font-feature-settings: 'kern' 1, 'liga' 1;">
                 ArcKernē Fiducium
             </span>
         </div>
@@ -182,11 +194,11 @@
     <main class="flex-grow">
         <!-- HOME -->
         <div id="view-home" class="view-section active">
-            <header class="px-6 md:px-24 pt-32 pb-20 md:pt-48 md:pb-32 border-b border-swiss-line reveal visible">
+            <header class="px-6 md:px-24 pt-32 pb-16 md:pt-48 md:pb-32 border-b border-swiss-line reveal visible">
                 <p class="type-label text-swiss-stone mb-8 flex items-center gap-3">
                     <span class="w-8 h-px bg-swiss-stone"></span> Singapore Registered Office · MBFC
                 </p>
-                <h1 class="font-serif text-4xl md:text-7xl text-swiss-stone mb-10 italic leading-[1.1] text-left">
+                <h1 class="font-serif text-4xl md:text-7xl text-swiss-stone mb-10 italic text-left">
                     Austere, non‑advisory fiduciary administration.
                 </h1>
                 <div class="max-w-3xl space-y-6 text-left">
@@ -198,7 +210,7 @@
                     <p class="font-serif text-lg md:text-xl leading-relaxed text-swiss-stone text-left opacity-90">
                         Mandates are executed in coordination with clients’ existing legal and tax advisors across jurisdictions.
                     </p>
-                    <p class="type-label text-swiss-muted max-w-xl text-left pt-4">
+                    <p class="type-label text-swiss-muted max-w-xl text-left pt-6">
                         B2B & B2B2C · Professional intermediaries, family offices, and ultra‑private principals.
                         No products. No distribution. Execution only.
                     </p>
@@ -220,7 +232,7 @@
                 <section class="border-l border-swiss-stone pl-6 md:pl-8 reveal">
                     <span class="type-label text-swiss-muted font-bold block mb-2">CAT‑01 · Private Trust Administration</span>
                     <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Minute books, resolutions, and audit‑grade records</h3>
-                    <p class="mt-6 text-swiss-muted text-sm md:text-base leading-7 max-w-3xl text-left">
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl text-left">
                         Maintenance of minute books, registers, and mandate files; ratification of
                         instructions; preparation and coordination of annual financial statements with
                         external counsel and auditors.
@@ -231,7 +243,7 @@
                 <section class="border-l border-swiss-stone pl-6 md:pl-8 reveal">
                     <span class="type-label text-swiss-muted font-bold block mb-2">CAT‑02 · Corporate Mandate Governance</span>
                     <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Board support for holding and treasury vehicles</h3>
-                    <p class="mt-6 text-swiss-muted text-sm md:text-base leading-7 max-w-3xl text-left">
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl text-left">
                         Convening and documenting board decisions, maintaining statutory registers, and
                         supporting governance protocols for Singapore and multi‑jurisdictional corporate
                         structures.
@@ -242,7 +254,7 @@
                 <section class="border-l border-swiss-stone pl-6 md:pl-8 reveal">
                     <span class="type-label text-swiss-muted font-bold block mb-2">CAT‑03 · Substance & Infrastructure</span>
                     <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Economic substance for family and holding platforms</h3>
-                    <p class="mt-6 text-swiss-muted text-sm md:text-base leading-7 max-w-3xl text-left">
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl text-left">
                         Provision of registered office, independent directors, board procedures, and
                         local record‑keeping to support Singapore economic substance and
                         controlled‑foreign‑company analysis for family offices and holding entities.
@@ -253,7 +265,7 @@
                 <section class="border-l border-swiss-stone pl-6 md:pl-8 reveal">
                     <span class="type-label text-swiss-muted font-bold block mb-2">CAT‑04 · Family Governance Execution</span>
                     <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Policy‑based distributions and oversight</h3>
-                    <p class="mt-6 text-swiss-muted text-sm md:text-base leading-7 max-w-3xl text-left">
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl text-left">
                         Implementation of pre‑agreed family policies, distribution frameworks, and
                         escalation protocols, allowing investment decision‑makers to remain separate
                         from day‑to‑day requests and internal pressures.
@@ -264,7 +276,7 @@
                 <section class="border-l border-swiss-stone pl-6 md:pl-8 reveal">
                     <span class="type-label text-swiss-muted font-bold block mb-2">CAT‑05 · Consolidated Reporting Liaison</span>
                     <h3 class="text-xl md:text-2xl font-serif mt-2 italic text-swiss-stone">Institutional reporting and audit liaison</h3>
-                    <p class="mt-6 text-swiss-muted text-sm md:text-base leading-7 max-w-3xl text-left">
+                    <p class="mt-4 text-swiss-muted text-sm md:text-base leading-relaxed max-w-3xl text-left">
                         Coordination of mandate‑level reporting, information requests, and audit
                         support with external accountants, tax advisors, and custodians under a
                         centralised instruction framework.
@@ -274,7 +286,7 @@
                 <!-- SCOPE NOTE -->
                 <section class="border border-dashed border-swiss-line p-8 mt-12 max-w-3xl bg-white/40 reveal">
                     <p class="type-label text-swiss-muted mb-4 font-bold">Scope of engagement</p>
-                    <p class="text-swiss-muted text-sm leading-7 font-serif italic text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed font-serif italic text-left">
                         Services are provided on an administrative and governance basis only, within
                         documented mandates agreed with clients’ legal and tax advisors. No
                         investment management, product distribution, or retail onboarding is offered.
@@ -297,11 +309,11 @@
                 <section class="space-y-6 reveal">
                     <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-4">Persona 01 · The Gatekeeper</p>
                     <h3 class="text-xl font-serif italic">Tax advisors & private client lawyers</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         You design the structure. ArcKernē executes the mandate: resolutions,
                         records, and governance mechanics, without providing legal, tax, or investment advice.
                     </p>
-                    <p class="text-swiss-muted text-sm leading-7 border-l-2 border-swiss-line pl-4 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-4 text-left">
                         No product shelf, no cross‑selling, and no competition with your advisory role.
                         Communications and reporting lines are configured around your firm.
                     </p>
@@ -311,12 +323,12 @@
                 <section class="space-y-6 reveal">
                     <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-4">Persona 02 · The Family Architect</p>
                     <h3 class="text-xl font-serif italic">Single family office leadership</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Infrastructure for Singapore substance: registered office, independent
                         directors, board procedures, and local records aligned with your existing
                         investment governance.
                     </p>
-                    <p class="text-swiss-muted text-sm leading-7 border-l-2 border-swiss-line pl-4 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-4 text-left">
                         Use ArcKernē as an execution and “bad‑cop” layer so that family
                         decision‑makers can preserve neutrality while policies are applied consistently.
                     </p>
@@ -326,12 +338,12 @@
                 <section class="space-y-6 reveal">
                     <p class="type-label text-swiss-stone font-bold border-b border-swiss-line pb-4">Persona 03 · The Private Principal</p>
                     <h3 class="text-xl font-serif italic">Ultra‑private principals</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         No in‑house investment products, no retrocessions, and no sales pipeline.
                         Fees are mandate‑based; loyalty is to the structure and documented intent,
                         not to yield‑driven distribution.
                     </p>
-                    <p class="text-swiss-muted text-sm leading-7 border-l-2 border-swiss-line pl-4 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed border-l-2 border-swiss-line pl-4 text-left">
                         Engagements are typically introduced via trusted counsel or family office
                         leadership and remain deliberately low‑profile.
                     </p>
@@ -341,7 +353,7 @@
             <div class="px-6 md:px-24 pb-20 reveal">
                 <section class="border border-dashed border-swiss-line p-8 max-w-3xl bg-white/40">
                     <p class="type-label text-swiss-muted mb-4 font-bold text-left">Engagement profile</p>
-                    <p class="text-swiss-muted text-sm leading-7 font-serif italic text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed font-serif italic text-left">
                         ArcKernē does not target retail clients, transactional one‑off trusts, or
                         arrangements seeking to evade tax illegally. Mandates are subject to
                         enhanced due diligence and regulatory requirements.
@@ -363,7 +375,7 @@
                 <!-- 1. NO OFFER -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">1. No Offer / No Solicitation</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Nothing on this site constitutes an offer, recommendation, or solicitation to enter into any transaction or to establish any structure in any jurisdiction. This website is for informational purposes only.
                     </p>
                 </section>
@@ -371,7 +383,7 @@
                 <!-- 2. NON-ADVISORY -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">2. Non-Advisory Nature</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         ArcKernē Fiducium ("The Firm") does not provide investment, tax, or legal advice. All fiduciary and administrative services are provided on an execution-only basis in accordance with the terms of the specific mandate and the instructions of the Client or the Client’s appointed advisors. The Firm does not act as a custodian of assets unless explicitly agreed under a specific structure.
                     </p>
                 </section>
@@ -379,10 +391,10 @@
                 <!-- 3. AML/CFT -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">3. AML / CFT & Compliance</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         The Firm is committed to the highest standards of Anti-Money Laundering (AML) and Counter-Terrorism Financing (CTF). <strong>Internal policies are aligned with MAS Notice TCA-N03</strong> applicable to trust companies and relevant international FATF standards.
                     </p>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         <strong>Enhanced Due Diligence (EDD):</strong> The Firm does not accept mandates involving assets derived from criminal conduct, tax evasion, or persons subject to international sanctions lists. All prospective clients undergo rigorous KYC and Source of Wealth verification.
                     </p>
                 </section>
@@ -390,7 +402,7 @@
                 <!-- 4. GOVERNING LAW -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">4. Governing Law & Jurisdiction</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Unless otherwise specified in a particular mandate agreement, the relationship between The Firm and the Client shall be governed by and construed in accordance with the laws of the <strong>Republic of Singapore</strong>. Any disputes arising out of or in connection with the services provided shall be subject to the exclusive jurisdiction of the Singapore courts.
                     </p>
                 </section>
@@ -398,7 +410,7 @@
                 <!-- 5. CLIENT CLASSIFICATION -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">5. Accredited & Institutional Investors</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Services are <strong>intended only for</strong> Accredited Investors, Institutional Investors, and Family Offices as defined under the <strong>Securities and Futures Act, Chapter 289 of Singapore</strong>, and related MAS guidance. The Firm does not market to the general retail public, and this site does not itself constitute an offer to any person.
                     </p>
                 </section>
@@ -406,7 +418,7 @@
                 <!-- 6. WEBSITE LIABILITY -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">6. Website Use & Liability</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Information is provided ‘as is’ and may be amended without notice; no warranty as to accuracy, completeness, or fitness for purpose is given; use of this site is at the user’s sole risk. The Firm shall not be liable for any loss or damage arising from the use or inability to use this website or reliance on its content, to the extent permitted by law.
                     </p>
                 </section>
@@ -414,7 +426,7 @@
                 <!-- 7. PRIVACY & COMMS -->
                 <section class="space-y-4">
                     <h3 class="type-label font-bold text-swiss-stone border-b border-swiss-line pb-2 inline-block">7. Privacy & Communications</h3>
-                    <p class="text-swiss-muted text-sm leading-7 text-left">
+                    <p class="text-swiss-muted text-sm leading-relaxed text-left">
                         Personal data provided in connection with mandate inquiries is processed solely for onboarding and compliance purposes, in line with applicable data protection laws. Email communications are not guaranteed secure; sensitive or confidential information should only be exchanged through agreed secure channels.
                     </p>
                 </section>
